@@ -1,8 +1,6 @@
-from common.sanitize import clean_html
-
-
-class PostCreateForm(forms.ModelForm):
+'title': forms.TextInput(attrs={
+    'class': 'form-control',
+    'aria-describedby': 'error-title',
+    'hx-post': reverse_lazy('posts:validate'),
     ...
-
-    def clean_content(self):
-        return clean_html(self.cleaned_data.get('content'))
+}),

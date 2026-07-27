@@ -1,0 +1,8 @@
+<div id="post-list-status" class="visually-hidden" role="status" aria-live="polite"
+     hx-swap-oob="true">
+    {% if posts.paginator.count == 0 %}
+        검색 결과가 없습니다.
+    {% else %}
+        전체 {{ posts.paginator.count }}건 중 {{ posts.number }}페이지, {{ posts|length }}건을 표시합니다.
+    {% endif %}
+</div>

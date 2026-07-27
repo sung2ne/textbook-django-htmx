@@ -1,13 +1,9 @@
-let lastToastKey = '';
-let lastToastAt = 0;
+// 모달을 연 요소를 기억했다가 닫을 때 포커스를 되돌린다
+let modalOpener = null;
 
-function showToastOnce(message, level) {
-    const now = Date.now();
-    const key = level + '|' + message;
-    if (key === lastToastKey && now - lastToastAt < 5000) {
-        return;
+document.body.addEventListener('htmx:beforeRequest', function (event) {
+    const elt = event.detail.elt;
+    if (elt && elt.getAttribute && elt.getAttribute('hx-target') === '#modal-body') {
+        modalOpener = elt;
     }
-    lastToastKey = key;
-    lastToastAt = now;
-    showToast(message, level);
-}
+});

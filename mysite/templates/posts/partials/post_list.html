@@ -1,12 +1,2 @@
-                <thead>
-                <tr class="text-center">
-                    <th style="width:2.5rem">
-                        <input type="checkbox" class="form-check-input" id="check-all" aria-label="전체 선택">
-                    </th>
-                    <th>순번</th>
-                    <th>{% include "posts/partials/sort_header.html" with header=headers.title %}</th>
-                    <th>{% include "posts/partials/sort_header.html" with header=headers.author %}</th>
-                    <th>{% include "posts/partials/sort_header.html" with header=headers.created %}</th>
-                    <th class="d-none d-md-table-cell">{% include "posts/partials/sort_header.html" with header=headers.updated %}</th>
-                </tr>
-            </thead>
+<div id="bulk-bar" class="d-flex align-items-center gap-2 mb-2" hidden>
+    <span class="small text-muted" role="status" aria-live="polite"><strong id="bulk-count">0</strong>건 선택됨</span>
