@@ -1,8 +1,12 @@
-    <button class="btn btn-sm btn-danger"
-            hx-post="{% url 'posts:bulk-delete' %}"
-            hx-include="#post-list input[name=ids]:checked, #search-form"
-            hx-target="#post-list"
-            hx-swap="innerHTML"
-            hx-confirm="선택한 게시글을 삭제합니다. 첨부파일도 함께 삭제되며 되돌릴 수 없습니다.">
-        선택 삭제
-    </button>
+                <thead>
+                <tr class="text-center">
+                    <th style="width:2.5rem">
+                        <input type="checkbox" class="form-check-input" id="check-all" aria-label="전체 선택">
+                    </th>
+                    <th>순번</th>
+                    <th>{% include "posts/partials/sort_header.html" with header=headers.title %}</th>
+                    <th>{% include "posts/partials/sort_header.html" with header=headers.author %}</th>
+                    <th>{% include "posts/partials/sort_header.html" with header=headers.created %}</th>
+                    <th class="d-none d-md-table-cell">{% include "posts/partials/sort_header.html" with header=headers.updated %}</th>
+                </tr>
+            </thead>

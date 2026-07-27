@@ -2,7 +2,7 @@
     <tr id="load-more">
         <td colspan="6" class="text-center py-3">
             <button class="btn btn-outline-secondary btn-sm"
-                    hx-get="{% url 'posts:more' %}?page={{ posts.next_page_number }}{% if searchType %}&searchType={{ searchType }}&searchKeyword={{ searchKeyword|urlencode }}{% endif %}"
+                    hx-get="{{ more_url }}"
                     hx-target="#load-more"
                     hx-swap="outerHTML"
                     hx-indicator="#load-more-spinner">
