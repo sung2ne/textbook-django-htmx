@@ -1,0 +1,20 @@
+<form method="POST"
+      enctype="multipart/form-data"
+      hx-post="{% url 'posts:create' %}"
+      hx-target="#post-form"
+      hx-swap="outerHTML"
+      hx-encoding="multipart/form-data"
+      hx-disabled-elt="find button[type=submit]"
+      id="post-form">
+    {% csrf_token %}
+    {% include "partials/form_field.html" with field=form.title %}
+    {% include "partials/form_field.html" with field=form.content %}
+    <div class="mb-3">
+        <label for="uploadFile" class="form-label">첨부파일</label>
+        <input type="file" id="uploadFile" name="uploadFile" class="form-control">
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a href="{% url 'posts:list' %}" class="btn btn-secondary">취소</a>
+    </div>
+</form>
