@@ -1,0 +1,7 @@
+<tr id="post-{{ post.id }}">
+    <td class="text-center">{{ post.index_number }}</td>
+    <td><a href="{% url 'posts:read' post_id=post.id %}">{{ post.title }}</a></td>
+    <td class="text-center">{{ post.created_by.first_name }}</td>
+    <td class="text-center">{{ post.created_at | date:"Y-m-d H:i" }}</td>
+    <td class="text-center d-none d-md-table-cell">{{ post.updated_at | date:"Y-m-d H:i" }}</td>
+</tr>
