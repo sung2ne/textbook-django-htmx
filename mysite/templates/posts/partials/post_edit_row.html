@@ -1,0 +1,27 @@
+<tr id="post-{{ post.id }}">
+    <td class="text-center">{{ post.index_number|default:"-" }}</td>
+    <td>
+        <input type="text"
+               name="title"
+               value="{{ post.title }}"
+               class="form-control form-control-sm"
+               maxlength="200"
+               autofocus>
+    </td>
+    <td class="text-center">{{ post.created_by.first_name }}</td>
+    <td class="text-center" colspan="2">
+        <button class="btn btn-sm btn-primary"
+                hx-post="{% url 'posts:save-row' post_id=post.id %}"
+                hx-include="closest tr"
+                hx-target="closest tr"
+                hx-swap="outerHTML">
+            저장
+        </button>
+        <button class="btn btn-sm btn-secondary"
+                hx-get="{% url 'posts:row' post_id=post.id %}"
+                hx-target="closest tr"
+                hx-swap="outerHTML">
+            취소
+        </button>
+    </td>
+</tr>
