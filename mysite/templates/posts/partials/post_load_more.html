@@ -1,0 +1,19 @@
+{% if posts.has_next %}
+    <tr id="load-more"
+        hx-get="{% url 'posts:more' %}?page={{ posts.next_page_number }}{% if searchType %}&searchType={{ searchType }}&searchKeyword={{ searchKeyword|urlencode }}{% endif %}"
+        hx-trigger="revealed"
+        hx-target="#load-more"
+        hx-swap="outerHTML"
+        hx-sync="closest tbody:drop">
+        <td colspan="5" class="text-center py-3 text-muted">
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            불러오는 중
+        </td>
+    </tr>
+{% elif posts.number > 1 %}
+    <tr>
+        <td colspan="5" class="text-center py-3 text-muted small">
+            마지막입니다. 전체 {{ posts.paginator.count }}건
+        </td>
+    </tr>
+{% endif %}
