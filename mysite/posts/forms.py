@@ -1,13 +1,8 @@
-class PostInlineTitleForm(forms.ModelForm):
-    """제목만 편집하는 인라인 폼."""
+from common.sanitize import clean_html
 
-    class Meta:
-        model = Post
-        fields = ['title']
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'form-control form-control-sm',
-                'maxlength': 200,
-                'autofocus': True,
-            }),
-        }
+
+class PostCreateForm(forms.ModelForm):
+    ...
+
+    def clean_content(self):
+        return clean_html(self.cleaned_data.get('content'))
