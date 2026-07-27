@@ -1,0 +1,9 @@
+<div></div>
+
+<template>
+    <tr id="post-{{ post.id }}" hx-swap-oob="true">
+        {% include "posts/partials/post_row_cells.html" %}
+    </tr>
+</template>
+
+{% include "partials/messages_oob.html" %}

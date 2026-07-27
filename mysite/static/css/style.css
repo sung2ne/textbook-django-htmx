@@ -1,0 +1,9 @@
+#modal {
+    width: min(680px, 92vw);
+    max-height: 85vh;
+    overflow: auto;
+}
+
+#modal::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+}

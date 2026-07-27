@@ -1,18 +1,3 @@
 <tr id="post-{{ post.id }}">
-    <td class="text-center">{{ post.index_number|default:"-" }}</td>
-    <td>
-        <a href="{% url 'posts:read' post_id=post.id %}">{{ post.title }}</a>
-        {% if post.created_by_id == request.user.id %}
-            <button class="btn btn-sm btn-link p-0 ms-1"
-                    title="제목 수정"
-                    hx-get="{% url 'posts:edit-row' post_id=post.id %}"
-                    hx-target="closest tr"
-                    hx-swap="outerHTML">
-                수정
-            </button>
-        {% endif %}
-    </td>
-    <td class="text-center">{{ post.created_by.first_name }}</td>
-    <td class="text-center">{{ post.created_at | date:"Y-m-d H:i" }}</td>
-    <td class="text-center d-none d-md-table-cell">{{ post.updated_at | date:"Y-m-d H:i" }}</td>
+    {% include "posts/partials/post_row_cells.html" %}
 </tr>
