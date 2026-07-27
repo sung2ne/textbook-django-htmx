@@ -1,18 +1,8 @@
-                {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center py-5">
-                            <p class="mb-2">검색 결과가 없습니다.</p>
-                            {% if searchKeyword %}
-                                <p class="text-muted small mb-3">
-                                    '{{ searchKeyword }}'와 일치하는 게시글을 찾지 못했습니다.
-                                </p>
-                                <button class="btn btn-sm btn-outline-secondary"
-                                        hx-get="{% url 'posts:list' %}"
-                                        hx-target="#post-list"
-                                        hx-swap="innerHTML">
-                                    전체 목록 보기
-                                </button>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
+    <button class="btn btn-sm btn-danger"
+            hx-post="{% url 'posts:bulk-delete' %}"
+            hx-include="#post-list input[name=ids]:checked, #search-form"
+            hx-target="#post-list"
+            hx-swap="innerHTML"
+            hx-confirm="선택한 게시글을 삭제합니다. 첨부파일도 함께 삭제되며 되돌릴 수 없습니다.">
+        선택 삭제
+    </button>

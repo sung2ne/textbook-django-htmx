@@ -1,19 +1,11 @@
 <tr id="post-{{ post.id }}">
+    <td></td>
     <td class="text-center">{{ post.index_number|default:"-" }}</td>
     <td>
-        {% if form %}
-            {{ form.title }}
-            {% for error in form.title.errors %}
-                <div class="text-danger small mt-1">{{ error }}</div>
-            {% endfor %}
-        {% else %}
-            <input type="text"
-                   name="title"
-                   value="{{ post.title }}"
-                   class="form-control form-control-sm"
-                   maxlength="200"
-                   autofocus>
-        {% endif %}
+        {{ form.title }}
+        {% for error in form.title.errors %}
+            <div class="text-danger small mt-1">{{ error }}</div>
+        {% endfor %}
     </td>
     <td class="text-center">{{ post.created_by.first_name }}</td>
     <td class="text-center" colspan="2">

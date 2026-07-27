@@ -1,3 +1,12 @@
+<td class="text-center">
+    {% if post.created_by_id == request.user.id %}
+        <input type="checkbox"
+               class="form-check-input post-check"
+               name="ids"
+               value="{{ post.id }}"
+               aria-label="{{ post.title }} 선택">
+    {% endif %}
+</td>
 <td class="text-center">{{ post.index_number|default:"-" }}</td>
 <td>
     <a href="{% url 'posts:read' post_id=post.id %}">{{ post.title }}</a>
@@ -15,6 +24,14 @@
                 hx-target="closest tr"
                 hx-swap="outerHTML">
             수정
+        </button>
+        <button class="btn btn-sm btn-link p-0 ms-1 text-danger"
+                title="삭제"
+                hx-delete="{% url 'posts:delete-row' post_id=post.id %}"
+                hx-confirm="'{{ post.title }}' 게시글을 삭제합니다. 첨부파일도 함께 삭제되며 되돌릴 수 없습니다."
+                hx-target="closest tr"
+                hx-swap="outerHTML">
+            삭제
         </button>
     {% endif %}
 </td>
