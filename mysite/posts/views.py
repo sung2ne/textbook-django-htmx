@@ -190,7 +190,7 @@ def get_posts(request):
     }
 
     # htmx 요청이면 목록 조각만 응답
-    if request.headers.get('HX-Request'):
+    if request.htmx:
         return render(request, 'posts/partials/post_list.html', context)
 
     return render(request, 'posts/list.html', context)
