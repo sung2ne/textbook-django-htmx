@@ -1,11 +1,11 @@
-from django.http import HttpResponse
+from django.utils.cache import patch_vary_headers
 
 
-class HtmxRedirectMiddleware:
-    """htmx 요청에 대한 302 응답을 HX-Redirect로 바꾼다.
+class HtmxVaryMiddleware:
+    """htmx 요청과 일반 요청의 응답이 캐시에서 섞이지 않게 한다.
 
-    htmx는 302를 받으면 그 주소의 내용을 가져와 조각 자리에 넣는다.
-    로그인 페이지 전체가 표 자리에 들어가는 것을 막는다.
+    같은 URL이 조각과 전체 페이지를 모두 응답하므로,
+    캐시가 둘을 구분할 수 있도록 Vary 헤더를 붙인다.
     """
 
     def __init__(self, get_response):
@@ -13,12 +13,5 @@ class HtmxRedirectMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-
-        if getattr(request, 'htmx', False) and response.status_code in (301, 302):
-            location = response.headers.get('Location')
-            if location:
-                redirect_response = HttpResponse(status=204)
-                redirect_response.headers['HX-Redirect'] = location
-                return redirect_response
-
+        patch_vary_headers(response, ['HX-Request', 'HX-History-Restore-Request'])
         return response
