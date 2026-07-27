@@ -1,25 +1,8 @@
-// 클라이언트에서 발생한 요청 실패를 서버에 알린다
-function reportClientError(kind, detail) {
-    // 보고 자체가 실패해도 무시한다
-    fetch('/client-errors/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCsrfToken(),
-        },
-        body: JSON.stringify({
-            kind: kind,
-            path: location.pathname,
-            detail: detail,
-        }),
-        keepalive: true,
-    }).catch(() => {});
+// 응답 상태 코드를 읽는다.
+// htmx 4.0에서 detail 구조가 바뀌므로 여기 한 곳만 고치면 된다.
+function responseStatus(event) {
+    const d = event.detail || {};
+    if (d.xhr && typeof d.xhr.status === 'number') return d.xhr.status;      // htmx 2.x
+    if (d.response && typeof d.response.status === 'number') return d.response.status;  // htmx 4.x
+    return 0;
 }
-
-document.body.addEventListener('htmx:sendError', function (event) {
-    reportClientError('sendError', (event.detail.requestConfig || {}).path);
-});
-
-document.body.addEventListener('htmx:timeout', function (event) {
-    reportClientError('timeout', (event.detail.requestConfig || {}).path);
-});
